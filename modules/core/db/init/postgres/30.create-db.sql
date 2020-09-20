@@ -1,3 +1,11 @@
+insert into SEC_USER
+(ID, VERSION, CREATE_TS, CREATED_BY, UPDATE_TS, UPDATED_BY, DELETE_TS, DELETED_BY, LOGIN, LOGIN_LC, PASSWORD, PASSWORD_ENCRYPTION, NAME, FIRST_NAME, LAST_NAME, MIDDLE_NAME, POSITION_, EMAIL, LANGUAGE_, TIME_ZONE, TIME_ZONE_AUTO, ACTIVE, CHANGE_PASSWORD_AT_LOGON, GROUP_ID, GROUP_NAMES, IP_MASK, SYS_TENANT_ID)
+values ('4cf84f6e-5b08-56c6-903c-13f4b2956122', 1, '2020-09-20 21:36:44', 'admin', '2020-09-20 21:36:44', null, null, null, 'jane', 'jane', '$2a$10$.wfSAqLHxOzdgik54xlDaekORc9yhOi.2SOuJAqnbipMqFYj5f10a', 'bcrypt', 'Jane Doe', 'Jane', 'Doe', null, null, 'jane.doe@sessions.com', 'en', null, null, true, false, '0fa2b1a5-1d68-4d69-9fbd-dff348347f93', null, null, null);
+insert into SEC_USER
+(ID, VERSION, CREATE_TS, CREATED_BY, UPDATE_TS, UPDATED_BY, DELETE_TS, DELETED_BY, LOGIN, LOGIN_LC, PASSWORD, PASSWORD_ENCRYPTION, NAME, FIRST_NAME, LAST_NAME, MIDDLE_NAME, POSITION_, EMAIL, LANGUAGE_, TIME_ZONE, TIME_ZONE_AUTO, ACTIVE, CHANGE_PASSWORD_AT_LOGON, GROUP_ID, GROUP_NAMES, IP_MASK, SYS_TENANT_ID)
+values ('16000146-9276-9c60-dd77-0cb993181b3b', 1, '2020-09-20 21:36:04', 'admin', '2020-09-20 21:36:04', null, null, null, 'john', 'john', '$2a$10$xAE./wJJD0jZLbDN4r0.ruGP9rlkj8j.FuoQV9HqLeZuXaHZh05P6', 'bcrypt', 'John Doe', 'John', 'Doe', null, null, 'john.doe@sessions.com', 'en', null, null, true, false, '0fa2b1a5-1d68-4d69-9fbd-dff348347f93', null, null, null);
+
+
 insert into SESSIONPLANNER_SPEAKER
 (ID, VERSION, CREATE_TS, CREATED_BY, UPDATE_TS, UPDATED_BY, DELETE_TS, DELETED_BY, FIRST_NAME, LAST_NAME, EMAIL)
 values ('6692bee6-e678-2dac-e029-040aaa8c9857', 2, '2020-09-20 17:00:09', 'admin', '2020-09-20 17:44:24', 'admin', null, null, 'Jane', 'Doe', 'jane.doe@sessions.com');
