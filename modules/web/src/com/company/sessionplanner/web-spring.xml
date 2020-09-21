@@ -12,6 +12,8 @@
         <property name="remoteServices">
             <map>
                 <entry key="sessionplanner_SessionService" value="com.company.sessionplanner.service.SessionService"/>
+                <entry key="sessionplanner_MailNotificationService"
+                       value="com.company.sessionplanner.service.MailNotificationService"/>
             </map>
         </property>
     </bean>

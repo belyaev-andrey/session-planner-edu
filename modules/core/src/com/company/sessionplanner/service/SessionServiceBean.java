@@ -13,6 +13,8 @@ public class SessionServiceBean implements SessionService {
 
     @Inject
     private DataManager dataManager;
+    @Inject
+    private MailNotificationService mailNotificationService;
 
     @Override
     public Session rescheduleSession(Session session, LocalDateTime newStartDate) {
@@ -33,6 +35,8 @@ public class SessionServiceBean implements SessionService {
             return session;
         }
         session.setStartDate(newStartDate);
-        return dataManager.commit(session);
+        Session savedSession = dataManager.commit(session);
+        mailNotificationService.notifyAboutScheduleChange(savedSession);
+        return savedSession;
     }
 }
