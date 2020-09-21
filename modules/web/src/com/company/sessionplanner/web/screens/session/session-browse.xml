@@ -9,6 +9,7 @@
             <view extends="_local">
                 <property name="speaker" view="_minimal"/>
                 <property name="endDate"/>
+                <property name="category" view="_minimal"/>
             </view>
             <loader id="sessionsDl">
                 <query>
@@ -36,17 +37,19 @@
                  expand="sessionsCalendar">
                 <calendar id="sessionsCalendar" dataContainer="sessionsDc" startDateProperty="startDate"
                           endDateProperty="endDate" captionProperty="topic" descriptionProperty="description"
-                firstVisibleHourOfDay="8" lastVisibleHourOfDay="19" navigationButtonsVisible="true"/>
+                          firstVisibleHourOfDay="8" lastVisibleHourOfDay="19" navigationButtonsVisible="true"/>
             </tab>
             <tab id="tableTab" caption="msg://tableTab.caption" margin="true,false,false,false"
                  spacing="true" expand="sessionsTable">
-                <frame id="diffFrame"
-                       src="/com/haulmont/cuba/gui/app/core/entitydiff/diff-view.xml"
-                       width="100%"
-                       height="400px"/>
+                <groupBox collapsable="true" collapsed="true" caption="msg://snapshot.groupbox.caption">
+                    <frame id="diffFrame"
+                           src="/com/haulmont/cuba/gui/app/core/entitydiff/diff-view.xml"
+                           width="100%"
+                           height="400px"/>
+                </groupBox>
                 <groupTable id="sessionsTable"
-                                    width="100%"
-                                    dataContainer="sessionsDc">
+                            width="100%"
+                            dataContainer="sessionsDc">
                     <actions>
                         <action id="create" type="create"/>
                         <action id="edit" type="edit"/>
@@ -60,6 +63,7 @@
                         <column id="speaker"/>
                         <column id="description"/>
                         <column id="endDate"/>
+                        <column id="category"/>
                     </columns>
                     <rowsCount/>
                     <buttonsPanel id="buttonsPanel"

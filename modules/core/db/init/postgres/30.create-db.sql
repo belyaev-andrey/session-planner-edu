@@ -52,4 +52,3 @@ values ('15a92ac6-4181-8092-c868-1cf789bfdec1', 1, '2020-09-20 17:48:34', 'admin
 insert into SESSIONPLANNER_SESSION
 (ID, VERSION, CREATE_TS, CREATED_BY, UPDATE_TS, UPDATED_BY, DELETE_TS, DELETED_BY, TOPIC, START_DATE, DURATION, SPEAKER_ID, DESCRIPTION)
 values ('270900a0-58e2-d500-a0f3-cee55311f2ec', 1, '2020-09-20 17:49:18', 'admin', '2020-09-20 17:49:18', null, null, null, 'Monitoring', '2020-09-24 13:00', 2, 'af8eee5f-9716-8492-0488-9cacb8eed556', 'Средства мониторинга в CUBA. JavaMelody.');
-

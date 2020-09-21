@@ -9,8 +9,9 @@
             <view extends="_local">
                 <property name="speaker" view="_minimal"/>
                 <property name="endDate"/>
+                <property name="category" view="_minimal"/>
             </view>
-            <loader/>
+            <loader dynamicAttributes="true"/>
         </instance>
     </data>
     <dialogMode height="auto"
@@ -24,6 +25,7 @@
                 <textField id="durationField" property="duration"/>
                 <textArea id="descriptionField" property="description"/>
                 <dateField id="endDateField" property="endDate"/>
+                <dynamicAttributesPanel dataContainer="sessionDc" width="AUTO" cols="2" rows="2"/>
             </column>
         </form>
         <hbox id="editActions" spacing="true">

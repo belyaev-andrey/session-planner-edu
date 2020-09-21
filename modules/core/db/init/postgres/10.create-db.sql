@@ -32,6 +32,7 @@ create table SESSIONPLANNER_SESSION (
     DURATION integer not null,
     SPEAKER_ID uuid not null,
     DESCRIPTION text,
+    CATEGORY_ID uuid,
     --
     primary key (ID)
 )^

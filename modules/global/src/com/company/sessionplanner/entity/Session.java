@@ -2,6 +2,8 @@ package com.company.sessionplanner.entity;
 
 import com.haulmont.chile.core.annotations.MetaProperty;
 import com.haulmont.chile.core.annotations.NamePattern;
+import com.haulmont.cuba.core.entity.Categorized;
+import com.haulmont.cuba.core.entity.Category;
 import com.haulmont.cuba.core.entity.StandardEntity;
 
 import javax.persistence.*;
@@ -12,7 +14,7 @@ import java.time.LocalDateTime;
 @NamePattern("%s|topic")
 @Table(name = "SESSIONPLANNER_SESSION")
 @Entity(name = "sessionplanner_Session")
-public class Session extends StandardEntity {
+public class Session extends StandardEntity implements Categorized {
     private static final long serialVersionUID = 7497709835929871175L;
 
     @NotNull
@@ -34,6 +36,18 @@ public class Session extends StandardEntity {
     @Lob
     @Column(name = "DESCRIPTION")
     protected String description;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "CATEGORY_ID")
+    private Category category;
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
 
     public Integer getDuration() {
         return duration;
