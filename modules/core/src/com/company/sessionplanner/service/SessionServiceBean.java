@@ -2,11 +2,13 @@ package com.company.sessionplanner.service;
 
 import com.company.sessionplanner.entity.Session;
 import com.haulmont.cuba.core.global.DataManager;
+import com.haulmont.cuba.core.global.View;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.List;
 
 @Service(SessionService.NAME)
 public class SessionServiceBean implements SessionService {
@@ -38,5 +40,13 @@ public class SessionServiceBean implements SessionService {
         Session savedSession = dataManager.commit(session);
         mailNotificationService.notifyAboutScheduleChange(savedSession);
         return savedSession;
+    }
+
+    @Override
+    public List<Session> findSessionsBySpeaker(String speakerEmail) {
+        return dataManager.load(Session.class).view(View.LOCAL)
+                .query("select s from sessionplanner_Session s where s.speaker.email = :email")
+                .parameter("email", speakerEmail)
+                .list();
     }
 }
