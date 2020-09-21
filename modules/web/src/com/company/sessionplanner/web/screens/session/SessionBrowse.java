@@ -3,20 +3,18 @@ package com.company.sessionplanner.web.screens.session;
 import com.company.sessionplanner.entity.Session;
 import com.company.sessionplanner.service.SessionService;
 import com.haulmont.cuba.gui.ScreenBuilders;
+import com.haulmont.cuba.gui.app.core.entitydiff.EntityDiffViewer;
+import com.haulmont.cuba.gui.components.Action;
 import com.haulmont.cuba.gui.components.Calendar;
 import com.haulmont.cuba.gui.components.EditorScreenFacet;
+import com.haulmont.cuba.gui.components.GroupTable;
 import com.haulmont.cuba.gui.model.CollectionContainer;
-import com.haulmont.cuba.gui.screen.CloseAction;
-import com.haulmont.cuba.gui.screen.LoadDataBeforeShow;
-import com.haulmont.cuba.gui.screen.LookupComponent;
-import com.haulmont.cuba.gui.screen.OpenMode;
-import com.haulmont.cuba.gui.screen.StandardLookup;
-import com.haulmont.cuba.gui.screen.Subscribe;
-import com.haulmont.cuba.gui.screen.UiController;
-import com.haulmont.cuba.gui.screen.UiDescriptor;
+import com.haulmont.cuba.gui.screen.*;
 
 import javax.inject.Inject;
 import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.Set;
 
 @UiController("sessionplanner_Session.browse")
 @UiDescriptor("session-browse.xml")
@@ -31,6 +29,10 @@ public class SessionBrowse extends StandardLookup<Session> {
     private CollectionContainer<Session> sessionsDc;
     @Inject
     private EditorScreenFacet<Session, SessionEdit> sessionEditDialog;
+    @Inject
+    private EntityDiffViewer diffFrame;
+    @Inject
+    private GroupTable<Session> sessionsTable;
 
     @Subscribe("sessionsCalendar")
     private void onSessionsCalendarCalendarEventClick(Calendar.CalendarEventClickEvent<LocalDateTime> event) {
@@ -43,5 +45,18 @@ public class SessionBrowse extends StandardLookup<Session> {
         Session session = sessionService.rescheduleSession((Session) event.getEntity(), event.getNewStart());
         sessionsDc.replaceItem(session);
     }
+
+    @Subscribe("sessionsTable.showVersions")
+    public void onSessionsTableShowVersions(Action.ActionPerformedEvent event) {
+        Set<Session> selected = sessionsTable.getSelected();
+        diffFrame.loadVersions(selected.stream().findAny().get());
+    }
+
+    @Install(to = "sessionsTable.showVersions", subject = "enabledRule")
+    private boolean sessionsTableShowVersionsEnabledRule() {
+        return (sessionsTable.getSelected()  != null) && (sessionsTable.getSelected().size() != 0);
+    }
+
+
 
 }

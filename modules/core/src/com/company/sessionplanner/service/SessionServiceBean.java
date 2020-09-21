@@ -1,8 +1,10 @@
 package com.company.sessionplanner.service;
 
 import com.company.sessionplanner.entity.Session;
+import com.haulmont.cuba.core.app.EntitySnapshotService;
 import com.haulmont.cuba.core.global.DataManager;
 import com.haulmont.cuba.core.global.View;
+import com.haulmont.cuba.core.global.ViewRepository;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
@@ -17,6 +19,10 @@ public class SessionServiceBean implements SessionService {
     private DataManager dataManager;
     @Inject
     private MailNotificationService mailNotificationService;
+    @Inject
+    private EntitySnapshotService entitySnapshotService;
+    @Inject
+    private ViewRepository viewRepository;
 
     @Override
     public Session rescheduleSession(Session session, LocalDateTime newStartDate) {
@@ -39,6 +45,7 @@ public class SessionServiceBean implements SessionService {
         session.setStartDate(newStartDate);
         Session savedSession = dataManager.commit(session);
         mailNotificationService.notifyAboutScheduleChange(savedSession);
+        entitySnapshotService.createSnapshot(savedSession, viewRepository.getView(Session.class, View.LOCAL));
         return savedSession;
     }
 
