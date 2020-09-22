@@ -22,7 +22,8 @@
                 <textField id="topicField" property="topic"/>
                 <pickerField id="speakerField" property="speaker"/>
                 <dateField id="startDateField" property="startDate"/>
-                <textField id="durationField" property="duration"/>
+                <hbox caption="msg://duration" id="sliderBox" width="250px"/>
+                <textField visible="false" id="durationField" property="duration"/>
                 <textArea id="descriptionField" property="description"/>
                 <dateField id="endDateField" property="endDate"/>
                 <dynamicAttributesPanel dataContainer="sessionDc" width="AUTO" cols="2" rows="2"/>
