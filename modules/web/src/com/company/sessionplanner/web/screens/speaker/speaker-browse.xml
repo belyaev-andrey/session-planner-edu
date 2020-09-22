@@ -30,6 +30,7 @@
                 <action id="create" type="create"/>
                 <action id="edit" type="edit"/>
                 <action id="remove" type="remove"/>
+                <action id="listPrintForm" type="listPrintForm"/>
             </actions>
             <columns>
                 <column id="firstName"/>
@@ -42,6 +43,8 @@
                 <button id="createBtn" action="speakersTable.create"/>
                 <button id="editBtn" action="speakersTable.edit"/>
                 <button id="removeBtn" action="speakersTable.remove"/>
+                <button id="speakersTableListPrintFormBtn" action="speakersTable.listPrintForm"/>
+                <button id="showReports"/>
             </buttonsPanel>
         </groupTable>
         <hbox id="lookupActions" spacing="true" visible="false">

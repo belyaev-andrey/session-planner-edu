@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        caption="msg://eduScreen.caption"
+        messagesPack="com.company.sessionplanner.web.screens.edu">
+    <data>
+        <collection id="speakersDc" class="com.company.sessionplanner.entity.Speaker">
+            <view extends="_local"/>
+            <loader id="speakersDl">
+                <query>
+                    <![CDATA[select e from sessionplanner_Speaker e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <editorScreen id="speakerEditor" container="speakersDc" editMode="EDIT"
+                      entityClass="com.company.sessionplanner.entity.Speaker"
+                      screenClass="com.company.sessionplanner.web.screens.speaker.SpeakerEdit"/>
+    </facets>
+    <layout expand="speakersTable">
+        <dataGrid id="speakersTable" width="100%" dataContainer="speakersDc">
+            <actions>
+                <action id="add" type="add"/>
+                <action id="edit" type="edit"/>
+                <action id="excel" type="excel"/>
+                <action id="refresh" type="refresh"/>
+                <action id="notificationAction"/>
+                <action id="runReport" icon="PRINT" caption="msg://run.report"/>
+            </actions>
+            <buttonsPanel alwaysVisible="true">
+                <button id="speakersTableAddBtn" action="speakersTable.add"/>
+                <button id="speakersTableEditBtn" action="speakersTable.edit"/>
+                <button id="speakersTableExcelBtn" action="speakersTable.excel"/>
+                <button id="speakersTableRefreshBtn" action="speakersTable.refresh"/>
+                <button id="speakersTableNotificationActionBtn" action="speakersTable.notificationAction"/>
+                <button id="speakersTableRunReportBtn" action="speakersTable.runReport"/>
+            </buttonsPanel>
+            <columns>
+                <column id="firstName" property="firstName"/>
+                <column id="lastName" property="lastName"/>
+                <column id="email" property="email"/>
+            </columns>
+        </dataGrid>
+    </layout>
+</window>
