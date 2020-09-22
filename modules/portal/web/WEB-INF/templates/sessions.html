@@ -20,7 +20,7 @@
         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
         <a href="#" onclick="document.getElementById('logoutForm').submit();">Logout</a>
     </form>
-    <a href="sessionsBrowse">Sessions</a>
+    <a th:href="@{/}">Home</a>
 </div>
 
 <div sec:authorize="isAnonymous()">
@@ -28,9 +28,9 @@
 </div>
 
 <div sec:authorize="isAuthenticated()">
-    <h1>Users</h1>
-    <ul th:each="user: ${users}">
-        <li th:text="${user.login}"></li>
+    <h1>Sessions browser</h1>
+    <ul th:each="s: ${sessions}">
+        <a th:href="@{editSession(id=${s.id})}"> <li th:text="${s.topic}"></li> </a>
     </ul>
 </div>
 </body>

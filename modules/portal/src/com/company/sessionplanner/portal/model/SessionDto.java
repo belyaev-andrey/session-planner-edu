@@ -1,6 +1,7 @@
 package com.company.sessionplanner.portal.model;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 public class SessionDto {
 
@@ -12,14 +13,25 @@ public class SessionDto {
 
     private String description;
 
+    private UUID id;
+
     public SessionDto() {
     }
 
-    public SessionDto(String topic, LocalDateTime startDate, Integer duration, String description) {
+    public SessionDto(String topic, LocalDateTime startDate, Integer duration, String description, UUID id) {
         this.topic = topic;
         this.startDate = startDate;
         this.duration = duration;
         this.description = description;
+        this.id = id;
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
     }
 
     public String getTopic() {

@@ -21,8 +21,9 @@ public class SessionsController {
         List<Session> sessions = sessionService.findSessionsBySpeaker(speakerEmail);
 
         return sessions.stream()
-                .map(s -> new SessionDto(s.getTopic(), s.getStartDate(), s.getDuration(), s.getDescription()))
+                .map(s -> new SessionDto(s.getTopic(), s.getStartDate(), s.getDuration(), s.getDescription(), s.getId()))
                 .collect(Collectors.toList());
     }
+
 
 }
