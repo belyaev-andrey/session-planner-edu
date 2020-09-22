@@ -24,7 +24,17 @@
                 <dateField id="startDateField" property="startDate"/>
                 <hbox caption="msg://duration" id="sliderBox" width="250px"/>
                 <textField visible="false" id="durationField" property="duration"/>
-                <textArea id="descriptionField" property="description"/>
+                <jsComponent id="descriptionEdit"
+                             caption="msg://descriptionEdit.caption"
+                             initFunctionName="com_company_sessionplanner_web_screens_session_Session"
+                             width="250px">
+                    <dependencies>
+                        <dependency path="webjar://quill:dist/quill.js" type="JAVASCRIPT"/>
+                        <dependency path="webjar://quill:dist/quill.snow.css" type="STYLESHEET"/>
+                        <dependency path="vaadin://quill/quill-connector.js" type="JAVASCRIPT"/>
+                    </dependencies>
+                </jsComponent>
+                <textArea id="descriptionField" property="description" visible="false"/>
                 <dateField id="endDateField" property="endDate"/>
                 <dynamicAttributesPanel dataContainer="sessionDc" width="AUTO" cols="2" rows="2"/>
             </column>
