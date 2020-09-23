@@ -13,9 +13,13 @@ services:
     depends_on:
       - postgres
     image: app-core:latest
+    environment:
+      - CUBA_TRUSTEDCLIENTPERMITTEDIPLIST=*.*.*.*
   web:
     depends_on:
       - postgres
     image: app:latest
+    environment:
+      - CUBA_CONNECTIONURLLIST=http://core:8079/app-core
     ports:
     - 80:8080
