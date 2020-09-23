@@ -243,18 +243,33 @@ restart.finalizedBy start
 
 task buildUberJar(type: CubaUberJarBuilding) {
     logbackConfigurationFile = 'etc/uber-jar-logback.xml'
-    singleJar = true
     appProperties = ['cuba.automaticDatabaseUpdate': true]
 }
 
-task copyUberJar(type: Copy) {
+task copyCoreUberJar(type: Copy) {
     dependsOn buildUberJar
-    from "build/distributions/uberJar/${modulePrefix}.jar"
-    into "docker"
+    from "build/distributions/uberJar/${modulePrefix}-core.jar"
+    into "docker-core"
 }
 
-task buildDockerImage(type: DockerBuildImage) {
-    dependsOn copyUberJar
-    inputDir = file('docker')
+task copyWebUberJar(type: Copy) {
+    dependsOn buildUberJar
+    from "build/distributions/uberJar/${modulePrefix}.jar"
+    into "docker-web"
+}
+
+task buildCoreDockerImage(type: DockerBuildImage) {
+    dependsOn copyCoreUberJar
+    inputDir = file('docker-core')
+    images.add("${modulePrefix}-core:latest")
+}
+
+task buildWebDockerImage(type: DockerBuildImage) {
+    dependsOn copyWebUberJar
+    inputDir = file('docker-web')
     images.add("${modulePrefix}:latest")
+}
+
+task buildAllImages {
+    dependsOn buildCoreDockerImage, buildWebDockerImage
 }

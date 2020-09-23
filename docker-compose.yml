@@ -9,6 +9,10 @@ services:
       - POSTGRES_PASSWORD=cuba
     volumes:
       - ./deploy/pg_data:/var/lib/postgresql/data
+  core:
+    depends_on:
+      - postgres
+    image: app-core:latest
   web:
     depends_on:
       - postgres
