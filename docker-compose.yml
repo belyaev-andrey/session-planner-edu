@@ -51,6 +51,10 @@ services:
     environment:
       - CUBA_CLUSTER_ENABLED=true
       - CUBA_TRUSTEDCLIENTPERMITTEDIPLIST=*.*.*.*
+      - CUBA_CLUSTER_JGROUPSCONFIG=jgroups_zk_docker.xml
+      - JGROUPS_ZKPING_CONNECTION=zookeeper:2181
+      - JGROUPS_BIND_ADDR=core_1
+      - CUBA_WEBHOSTNAME=core_2
   core_2:
     depends_on:
       - postgres
@@ -58,20 +62,26 @@ services:
     environment:
       - CUBA_CLUSTER_ENABLED=true
       - CUBA_TRUSTEDCLIENTPERMITTEDIPLIST=*.*.*.*
+      - CUBA_CLUSTER_JGROUPSCONFIG=jgroups_zk_docker.xml
+      - JGROUPS_ZKPING_CONNECTION=zookeeper:2181
+      - JGROUPS_BIND_ADDR=core_2
+      - CUBA_WEBHOSTNAME=core_2
+  zookeeper:
+    image: zookeeper
   web_1:
     depends_on:
       - core_1
       - core_2
     image: app:latest
     environment:
-      - CUBA_CONNECTIONURLLIST=http://core_1:8079/app-core,http://core_2:8079/app-core
+      - CUBAZK_CONNECTION=zookeeper:2181
   web_2:
     depends_on:
       - core_1
       - core_2
     image: app:latest
     environment:
-      - CUBA_CONNECTIONURLLIST=http://core_1:8079/app-core,http://core_2:8079/app-core
+      - CUBAZK_CONNECTION=zookeeper:2181
   nginx:
     depends_on:
       - web_1
