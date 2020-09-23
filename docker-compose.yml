@@ -9,24 +9,34 @@ services:
       - POSTGRES_PASSWORD=cuba
     volumes:
       - ./deploy/pg_data:/var/lib/postgresql/data
-  core:
+  core_1:
     depends_on:
       - postgres
     image: app-core:latest
     environment:
+      - CUBA_CLUSTER_ENABLED=true
+      - CUBA_TRUSTEDCLIENTPERMITTEDIPLIST=*.*.*.*
+  core_2:
+    depends_on:
+      - postgres
+    image: app-core:latest
+    environment:
+      - CUBA_CLUSTER_ENABLED=true
       - CUBA_TRUSTEDCLIENTPERMITTEDIPLIST=*.*.*.*
   web_1:
     depends_on:
-      - core
+      - core_1
+      - core_2
     image: app:latest
     environment:
-      - CUBA_CONNECTIONURLLIST=http://core:8079/app-core
+      - CUBA_CONNECTIONURLLIST=http://core_1:8079/app-core,http://core_2:8079/app-core
   web_2:
     depends_on:
-      - core
+      - core_1
+      - core_2
     image: app:latest
     environment:
-      - CUBA_CONNECTIONURLLIST=http://core:8079/app-core
+      - CUBA_CONNECTIONURLLIST=http://core_1:8079/app-core,http://core_2:8079/app-core
   nginx:
     depends_on:
       - web_1
