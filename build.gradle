@@ -1,9 +1,9 @@
 buildscript {
     ext.cubaVersion = '7.2.8'
     repositories {
+        gradlePluginPortal()
         maven {
             url 'https://dl.bintray.com/cuba-platform/main'
-
         }
         jcenter()
 
@@ -11,6 +11,7 @@ buildscript {
     }
     dependencies {
         classpath "com.haulmont.gradle:cuba-plugin:$cubaVersion"
+        classpath 'com.bmuschko:gradle-docker-plugin:6.4.0'
     }
 }
 
@@ -24,6 +25,9 @@ def portalModule = project(":${modulePrefix}-portal")
 def servletApi = 'javax.servlet:javax.servlet-api:3.1.0'
 
 apply(plugin: 'cuba')
+apply(plugin: 'com.bmuschko.docker-remote-api')
+
+import com.bmuschko.gradle.docker.tasks.image.*
 
 cuba {
     artifact {
@@ -244,7 +248,13 @@ task buildUberJar(type: CubaUberJarBuilding) {
 }
 
 task copyUberJar(type: Copy) {
-    dependsOn 'buildUberJar'
+    dependsOn buildUberJar
     from "build/distributions/uberJar/${modulePrefix}.jar"
     into "docker"
+}
+
+task buildDockerImage(type: DockerBuildImage) {
+    dependsOn copyUberJar
+    inputDir = file('docker')
+    images.add("${modulePrefix}:latest")
 }
