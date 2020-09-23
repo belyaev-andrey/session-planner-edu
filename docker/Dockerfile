@@ -1,3 +1,3 @@
-FROM bellsoft/liberica-openjdk-alpine
+FROM bellsoft/liberica-openjdk-alpine:11.0.8-10
 COPY . /opt/planner
-CMD java -jar /opt/planner/app.jar
+CMD java -Dspring.profiles.active=docker -jar /opt/planner/app.jar
