@@ -53,8 +53,7 @@ services:
       - CUBA_TRUSTEDCLIENTPERMITTEDIPLIST=*.*.*.*
       - CUBA_CLUSTER_JGROUPSCONFIG=jgroups_zk_docker.xml
       - JGROUPS_ZKPING_CONNECTION=zookeeper:2181
-      - JGROUPS_BIND_ADDR=core_1
-      - CUBA_WEBHOSTNAME=core_2
+      - CUBA_WEBHOSTNAME=core_1
   core_2:
     depends_on:
       - postgres
@@ -64,7 +63,6 @@ services:
       - CUBA_TRUSTEDCLIENTPERMITTEDIPLIST=*.*.*.*
       - CUBA_CLUSTER_JGROUPSCONFIG=jgroups_zk_docker.xml
       - JGROUPS_ZKPING_CONNECTION=zookeeper:2181
-      - JGROUPS_BIND_ADDR=core_2
       - CUBA_WEBHOSTNAME=core_2
   zookeeper:
     image: zookeeper
